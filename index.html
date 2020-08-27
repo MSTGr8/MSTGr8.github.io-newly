@@ -1,0 +1,83 @@
+<html>
+ <head> 
+  <style>
+     *{
+       font-size:45px;
+       margin:0;
+       padding:0;
+      }
+     body{
+       background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+     }
+     ul{
+       background-color:#e334e5;
+       margin:20px;
+       padding:20px;
+     }
+    ul li{
+      background-color:#f457e4;
+      padding:10px;
+      margin:5px;
+    }
+    #name{
+       width:82%;
+       border:solid 5px red;
+    }
+    #msg{
+       position:absolute;
+       bottom:0;
+    }
+   </style> 
+ </head> 
+ <body> 
+  <!-- The core Firebase JS SDK is always required and must be listed first --> 
+  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-database.js"></script> 
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries --> 
+  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-analytics.js"></script> 
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDTI1pDmd-Nu9sM5EeGolEpvKkpB4gqw4Q",
+    authDomain: "quotations-2543d.firebaseapp.com",
+    databaseURL: "https://quotations-2543d.firebaseio.com",
+    projectId: "quotations-2543d",
+    storageBucket: "quotations-2543d.appspot.com",
+    messagingSenderId: "49994902115",
+    appId: "1:49994902115:web:61cf0a4ac758d717eee656",
+    measurementId: "G-159PJBX7RV"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script> 
+  <ul id="h"></ul> 
+  <div id="msg"> 
+   <input placeholder="message" autocomplete="false" id="name"> 
+   <button onclick="writeData()">SEND</button> 
+  </div> 
+  <script>
+    var x=prompt("enter name");
+      function writeData(){
+      mssg= document.getElementById("name").value;
+      if((mssg !== "") && (x !== "") && (x !== null)){ 
+     firebase.database().ref("messages").push().set({
+      "sender" : x,
+      "msg" : mssg
+    });
+  }
+  else{
+    alert("message or name can't be empty")
+  }
+  }
+  firebase.database().ref('messages').on('child_added',function(snapshot){
+      var html="";
+      html+="<li>"
+      html+=snapshot.val().sender+" : "+snapshot.val().msg;
+      html+="</li>"
+      document.getElementById("h").innerHTML+=html;
+    });
+  </script> 
+ </body>
+</html>
