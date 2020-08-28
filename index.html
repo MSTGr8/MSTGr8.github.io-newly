@@ -69,6 +69,7 @@
   else{
     alert("message or name can't be empty")
   }
+  document.getElementById("name").value="";
   }
   firebase.database().ref('messages').on('child_added',function(snapshot){
       var html="";
