@@ -14,18 +14,27 @@
        background-color:#e334e5;
        margin:20px;
        padding:20px;
+overflow:hidden;
      }
     ul li{
       background-color:#f457e4;
       padding:10px;
       margin:10px;
     }
+#me{
+float:left;
+clear:both;
+}
+#me{
+float:right;
+clear:both;
+}
     #name{
        width:82%;
        border:solid 5px red;
     }
     #msg{
-       position:relative;
+       position:fixed;
        bottom:0;
     }
    </style> 
@@ -57,7 +66,7 @@
   </div> 
   <script>
     alert("please give a star😊😊");
-    var x=prompt("enter name");
+    const x=prompt("enter name");
       function writeData(){
       mssg= document.getElementById("name").value;
       if((mssg !== "") && (x !== "") && (x !== null)){ 
@@ -73,10 +82,18 @@
   }
   firebase.database().ref('messages').on('child_added',function(snapshot){
       var html="";
-      html+="<li>"
-      html+=snapshot.val().sender+" : "+snapshot.val().msg;
+      if(snapshot.val().sender !== x){
+      html+="<li id='me'>"
+      html+=snapshot.val().sender+": "+snapshot.val().msg;
       html+="</li>"
       document.getElementById("h").innerHTML+=html;
+    }
+    else{
+      html+="<li id='he'>"
+      html+=snapshot.val().sender+": "+snapshot.val().msg;
+      html+="</li>"
+      document.getElementById("h").innerHTML+=html;
+    }
     });
   </script> 
  </body>
