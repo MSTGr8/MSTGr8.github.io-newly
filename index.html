@@ -24,10 +24,12 @@ overflow:hidden;
 #me{
 float:left;
 clear:both;
+ border-radius:0 50px 50px 50px;
 }
 #he{
 float:right;
 clear:both;
+ border-radius:50px 0 50px 50px;
 }
     #name{
        width:82%;
@@ -42,7 +44,8 @@ clear:both;
  <body> 
   <!-- The core Firebase JS SDK is always required and must be listed first --> 
   <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-app.js"></script> 
-  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-database.js"></script> 
+  <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-database.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/7.19.0/firebase-auth.js"></script>
   <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries --> 
   <script>
@@ -94,6 +97,16 @@ clear:both;
       html+="</li>"
       document.getElementById("h").innerHTML+=html;
     }
+    });
+   auth.onAuthStateChanged(function (user){
+      if(user)
+      {
+        alert("active user "+user.email);
+      }
+      else
+      {
+        alert("no active user at present");
+      }
     });
   </script> 
  </body>
